@@ -21,7 +21,7 @@
   set $workspace2 "2: Chromium "
   set $workspace1 "1: Workspace "
   set $workspace3 "3: Chat "
-  set $workspace4 "4:"
+  set $workspace4 "4: Workspace "
   set $workspace5 "5:"
   set $workspace6 "6:"
   set $workspace7 "7:"
@@ -51,10 +51,11 @@
   bindsym $mod+Shift+k move up
   bindsym $mod+Shift+l move right
   bindsym $mod+Shift+space floating toggle
-  bindsym $mod+f fullscreen toggl
-  bindsym $mod+v layout toggle split
-  #bindsym $mod+h split h
+  bindsym $mod+f fullscreen toggle
+  bindsym $mod+b split h
+  bindsym $mod+v split v
   bindsym Print exec scrot -e 'mv $f ~/ScreenShots/'
+  bindsym $mod+a focus parent
   bindsym $mod+space focus mode_toggle
   bindsym $mod+r mode "  "
   mode "  " {
@@ -74,13 +75,12 @@
   bindsym $mod+Return exec i3-sensible-terminal
   bindsym $mod+d exec rofi -show run
   # bindsym --release Print exec imgur-screenshot
-  bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-# Volume & Media Bindings
+  bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit
 
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
-bindsym XF86AudioMute exec amixer -q set Master toggle
+
+
   bindsym XF86AudioPlay exec playerctl play-pause
   bindsym XF86AudioPause exec playerctl pause
   bindsym XF86AudioNext exec playerctl next
@@ -120,7 +120,7 @@ bindsym XF86AudioMute exec amixer -q set Master toggle
   workspace $workspace10 output $monitor1
 
 # Program Workspaces
-  assign [class="Chromium"] $workspace2
+  assign [class="chromium-browser"] $workspace2
   assign [class="discord"] $workspace3
 
 # Floating
@@ -144,7 +144,6 @@ gaps outer 10
     
     font pango: System San Francisco Display, FontAwesome 8
     status_command i3blocks -c /home/cookie/.i3/i3blocks.conf
-    tray_output primary
     position top
     # strip_workspace_numbers yes
     #bindsym button4 nop
@@ -160,6 +159,6 @@ gaps outer 10
       urgent_workspace   $base01 $base01    $base08
     }
 }
-  exec_always compton
+  exec_always --no-startup-id compton
   exec_always --no-startup-id nitrogen --restore
   exec ~/discord/discord
