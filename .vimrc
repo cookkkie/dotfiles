@@ -1,12 +1,34 @@
 set nocompatible
 filetype off
 
-set rtp+=~/.vim/bundle/Vundle.vim
+" Always show statusline
+set laststatus=2
+"
+" " Use 256 colours (Use this setting only if your terminal supports 256
+" colours)
+set t_Co=256
+set rtp+=~/.vim/bundle/Vundle.vim 
 call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 "git interface
 Plugin 'tpope/vim-fugitive'
+" go
+Plugin 'fatih/vim-go'
+"Bar
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+"Snippets
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+"color
+Plugin 'notpratheek/vim-luna'
+Plugin 'acoustichero/simple_dark'
+Plugin 'mkarmona/colorsbox'
+Plugin 'sickill/vim-monokai'
+" Optional:
+Plugin 'honza/vim-snippets'
 "filesystem
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
@@ -18,22 +40,19 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'nelstrom/vim-markdown-preview'
 "python sytax checker
 Plugin 'nvie/vim-flake8'
-Plugin 'vim-scripts/Pydiction'
 Plugin 'vim-scripts/indentpython.vim'
 Plugin 'scrooloose/syntastic'
 
 "auto-completion stuff
 "Plugin 'klen/python-mode'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'klen/rope-vim'
+"Plugin 'Valloric/YouCompleteMe'
+"kPlugin 'klen/rope-vim'
 "Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
 ""code folding
 ""Plugin 'tmhedberg/SimpylFold'
 
 "Colors!!!
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'jnurmine/Zenburn'
 
 call vundle#end()
 
@@ -53,6 +72,15 @@ map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+ endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
 "I don't like swap files
 set noswapfile
 
@@ -107,11 +135,9 @@ let python_highlight_all=1
 syntax on
 
 " Keep indentation level from previous line:
-autocmd FileType python set autoindent
-
+autocmd FileType python set autoindent 
 " make backspaces more powerfull
 set backspace=indent,eol,start
-
 
 "Folding based on indentation:
 "autocmd FileType python set foldmethod=indent
@@ -120,9 +146,14 @@ set backspace=indent,eol,start
 "----------Stop python PEP 8 stuff--------------
 
 "js stuff"
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 expandtab tabstop=2
 "split navigations
+
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
+colorscheme monokai
+"hi Normal ctermbg=none
+let g:airline_powerline_fonts=1
+
